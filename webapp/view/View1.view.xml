@@ -43,7 +43,7 @@
 						<Input id="idConfirmPassword" type="Password" maxLength="64" class="sapUiSmallMarginBottom"/>
 						
 						<HBox class="sapUiAlignItemsCenter">
-							<CheckBox />
+							<CheckBox id="idCheckBox" select="onSelectCheckbox"/>
 							<Text text="{i18n>agreeWith}" class="sapUiTinyMarginEnd sapUiSmallMarginTop"/>
 							<Link text="{i18n>userAgreement}" href="./pdf/UserAgreement.pdf" target="_blank"
 							class="sapUiTinyMarginEnd sapUiSmallMarginTop"/>
@@ -54,7 +54,7 @@
 						
 						<HBox>
 							<Button type="Emphasized" text="{i18n>register}" press="onSaveForm" 
-							class="sapUiSmallMarginEnd"/>
+							class="sapUiSmallMarginEnd" enabled="{/bCheckboxValue}"/>
 							<Button type="Reject" text="{i18n>cancel}" press="onClearForm"/>
 						</HBox>
 						
@@ -62,7 +62,7 @@
 							text="{i18n>successRegister}"
 							type="Success"
 							showIcon="true"
-							visible="{/registerButton}"
+							visible="{/bRegisterValue}"
 							showCloseButton="true"
 							class="sapUiSmallMarginTop">
 						</MessageStrip>
