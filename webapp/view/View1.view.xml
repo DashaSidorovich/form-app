@@ -42,8 +42,18 @@
 						<Label text="{i18n>confirmPassword}" labelFor="idConfirmPassword" />
 						<Input id="idConfirmPassword" type="Password" maxLength="64" class="sapUiSmallMarginBottom"/>
 						
+						<HBox >
+							<Text text="{i18n>agreeWith}" class="sapUiTinyMarginEnd"/>
+							<Link text="{i18n>userAgreement}" href="./pdf/UserAgreement.pdf" target="_blank"
+							class="sapUiTinyMarginEnd"/>
+							<Text text="{i18n>and}" class="sapUiTinyMarginEnd"/>
+							<Link text="{i18n>platformRules}" href="./pdf/PlatformRules.pdf" target="_blank"
+							class="sapUiSmallMarginBottom"/>
+						</HBox>
+						
 						<HBox>
-							<Button type="Emphasized" text="Зарегистрироватсья" press="onSaveForm" class="sapUiSmallMarginEnd"/>
+							<Button type="Emphasized" text="Зарегистрироватсья" press="onSaveForm" 
+							class="sapUiSmallMarginEnd"/>
 							<Button type="Reject" text="Сбросить" press="onClearForm"/>
 						</HBox>
 					</VBox>
