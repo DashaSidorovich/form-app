@@ -52,6 +52,25 @@ sap.ui.define([
 		    if (!value.startsWith("+375")) {
 		        input.setValue("+375");
 		    }
+		},
+		onClearForm: function () {
+		    var oView = this.getView();
+		    oView.byId("idName").setValue("");
+		    oView.byId("idLastname").setValue("");
+		    oView.byId("idPhoneNumber").setValue("");
+		    oView.byId("idEmail").setValue("");
+		    oView.byId("idPassword").setValue("");
+		    oView.byId("idConfirmPassword").setValue("");
+		    oView.byId("idSelectCity").setSelectedKey(null);
+		},
+		
+		onSaveForm: function(){
+			this.getView().setBusy(true);
+			setTimeout(() => {
+				this.getView().setBusy(false);			
+				this.onClearForm();
+			}, 3000);
 		}
+
 	});
 });
