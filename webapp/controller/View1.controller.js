@@ -83,9 +83,7 @@ sap.ui.define([
 			this.getView().getModel().setProperty("/bRegisterValue", false);
 			this.getView().setBusy(true);			
 			var isValid = this.validateForm();
-			console.log(isValid);
 			if (isValid){
-				console.log('valid');
 				setTimeout(() => {	
 					this.getView().setBusy(false);
 					this.onClearForm();
@@ -93,7 +91,7 @@ sap.ui.define([
 				}, 3000);	
 			}
 			else {
-				this.getView().setBusy(false);			
+				this.getView().setBusy(false);	
 			}
 				
 			
@@ -105,6 +103,7 @@ sap.ui.define([
 		
 		validateForm: function() {
 			var oView = this.getView();
+			var oPage = this.getView().byId("idRegistrationPage");
 			var isValid = true;
 
 			var oNameInput = oView.byId("idName");
@@ -112,8 +111,11 @@ sap.ui.define([
 				isValid = false;
 				oNameInput.setValueState(ValueState.Error);
 				oNameInput.setValueStateText(this.getResourceBundle().getText("nameError"));
+				oNameInput.focus(); 
+				oPage.scrollToElement(oNameInput);
 			} else {
 				oNameInput.setValueState(ValueState.None);
+				
 			}
 
 			var oLastnameInput = oView.byId("idLastname");
@@ -121,6 +123,7 @@ sap.ui.define([
 				isValid = false;
 				oLastnameInput.setValueState(ValueState.Error);
 				oLastnameInput.setValueStateText(this.getResourceBundle().getText("lastnameError"));
+				oPage.scrollToElement(oLastnameInput);
 			} else {
 				oLastnameInput.setValueState(ValueState.None);
 			}
@@ -131,6 +134,7 @@ sap.ui.define([
 				isValid = false;
 				oCityInput.setValueState(ValueState.Error);
 				oCityInput.setValueStateText(this.getResourceBundle().getText("lastnameError"));
+				oPage.scrollToElement(oCityInput);
 			} else {
 				oCityInput.setValueState(ValueState.None);
 			}
@@ -141,16 +145,28 @@ sap.ui.define([
 				isValid = false;
 				oPhoneInput.setValueState(ValueState.Error);
 				oPhoneInput.setValueStateText(this.getResourceBundle().getText("phoneError"));
+				oPage.scrollToElement(oPhoneInput);
 			} else {
 				oPhoneInput.setValueState(ValueState.None);
 			}
 
 			var oEmailInput = oView.byId("idEmail");
+			var sEmailValue = oEmailInput.getValue();
+			var isEmailValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(sEmailValue);
+
 			if (!oEmailInput.getValue()) {
 				isValid = false;
 				oEmailInput.setValueState(ValueState.Error);
 				oEmailInput.setValueStateText(this.getResourceBundle().getText("emailError"));
-			} else {
+				oPage.scrollToElement(oEmailInput);
+			} 
+			else if (!isEmailValid) {
+				isValid = false;
+				oEmailInput.setValueState(ValueState.Error);
+				oEmailInput.setValueStateText(this.getResourceBundle().getText("emailIncorrectError"));
+				oPage.scrollToElement(oEmailInput);
+			}
+			else {
 				oEmailInput.setValueState(ValueState.None);
 			}
 			
@@ -162,11 +178,13 @@ sap.ui.define([
 				isValid = false;
 				oPasswordInput.setValueState(ValueState.Error);
 				oPasswordInput.setValueStateText(this.getResourceBundle().getText("passwordError"));
+				oPage.scrollToElement(oPasswordInput);
 			}
 			else if (!isPasswordValid) {
 				isValid = false;
 				oPasswordInput.setValueState(ValueState.Error);
 				oPasswordInput.setValueStateText(this.getResourceBundle().getText("passwordIncorrectError"));
+				oPage.scrollToElement(oPasswordInput);
 			} 
 			else {
 				oPasswordInput.setValueState(ValueState.None);
@@ -174,10 +192,11 @@ sap.ui.define([
 			
 			var oConfirmPassword = oView.byId("idConfirmPassword");
 
-			if (oPasswordInput.getValue() !== oConfirmPassword) {
+			if (oPasswordInput.getValue() !== oConfirmPassword.getValue()) {
 				isValid = false;
 				oConfirmPassword.setValueState(ValueState.Error);
 				oConfirmPassword.setValueStateText(this.getResourceBundle().getText("confirmPasswordError"));
+				oPage.scrollToElement(oConfirmPassword);
 			} else {
 				oConfirmPassword.setValueState(ValueState.None);
 			}
