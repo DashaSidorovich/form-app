@@ -42,20 +42,30 @@
 						<Label text="{i18n>confirmPassword}" labelFor="idConfirmPassword" />
 						<Input id="idConfirmPassword" type="Password" maxLength="64" class="sapUiSmallMarginBottom"/>
 						
-						<HBox >
-							<Text text="{i18n>agreeWith}" class="sapUiTinyMarginEnd"/>
+						<HBox class="sapUiAlignItemsCenter">
+							<CheckBox />
+							<Text text="{i18n>agreeWith}" class="sapUiTinyMarginEnd sapUiSmallMarginTop"/>
 							<Link text="{i18n>userAgreement}" href="./pdf/UserAgreement.pdf" target="_blank"
-							class="sapUiTinyMarginEnd"/>
-							<Text text="{i18n>and}" class="sapUiTinyMarginEnd"/>
+							class="sapUiTinyMarginEnd sapUiSmallMarginTop"/>
+							<Text text="{i18n>and}" class="sapUiTinyMarginEnd sapUiSmallMarginTop"/>
 							<Link text="{i18n>platformRules}" href="./pdf/PlatformRules.pdf" target="_blank"
-							class="sapUiSmallMarginBottom"/>
+							class="sapUiSmallMarginBottom sapUiSmallMarginTop"/>
 						</HBox>
 						
 						<HBox>
-							<Button type="Emphasized" text="Зарегистрироватсья" press="onSaveForm" 
+							<Button type="Emphasized" text="{i18n>register}" press="onSaveForm" 
 							class="sapUiSmallMarginEnd"/>
-							<Button type="Reject" text="Сбросить" press="onClearForm"/>
+							<Button type="Reject" text="{i18n>cancel}" press="onClearForm"/>
 						</HBox>
+						
+						<MessageStrip
+							text="{i18n>successRegister}"
+							type="Success"
+							showIcon="true"
+							visible="{/registerButton}"
+							showCloseButton="true"
+							class="sapUiSmallMarginTop">
+						</MessageStrip>
 					</VBox>
 
 				</content>

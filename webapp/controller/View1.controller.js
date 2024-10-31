@@ -8,8 +8,9 @@ sap.ui.define([
 	return Controller.extend("zjblessonsformattersApp.controller.View1", {
 		onInit: function () {
 			var oData = {
+				
 				"selectedCity": "city1",
-
+				"registerButton": false,
 				"belarusCities": [
 					{
 						"CityId": "city1",
@@ -39,6 +40,7 @@ sap.ui.define([
 				
 			};
 			var oModel = new JSONModel(oData);
+			
 			this.getView().setModel(oModel);
 		},
 		
@@ -55,6 +57,7 @@ sap.ui.define([
 		},
 		onClearForm: function () {
 		    var oView = this.getView();
+		    oView.getModel().setProperty("/registerButton", false);
 		    oView.byId("idName").setValue("");
 		    oView.byId("idLastname").setValue("");
 		    oView.byId("idPhoneNumber").setValue("");
@@ -65,11 +68,14 @@ sap.ui.define([
 		},
 		
 		onSaveForm: function(){
+			this.getView().getModel().setProperty("/registerButton", false);
 			this.getView().setBusy(true);
 			setTimeout(() => {
 				this.getView().setBusy(false);			
 				this.onClearForm();
+				this.getView().getModel().setProperty("/registerButton", true);
 			}, 3000);
+
 		}
 
 	});
