@@ -39,7 +39,7 @@
 
 	"sap.ui5": {
 		"rootView": {
-			"viewName": "zjblessonsformattersApp.view.View1",
+			"viewName": "zjblessonsformattersApp.view.App",
 			"type": "XML"
 		},
 		"dependencies": {

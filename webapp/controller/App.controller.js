@@ -6,7 +6,7 @@ sap.ui.define([
 ], function(Controller, JSONModel, ValueState) {
 	"use strict";
 
-	return Controller.extend("zjblessonsformattersApp.controller.View1", {
+	return Controller.extend("zjblessonsformattersApp.controller.App", {
 		onInit: function () {
 			var oData = {
 				
