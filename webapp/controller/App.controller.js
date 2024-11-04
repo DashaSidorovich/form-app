@@ -144,14 +144,25 @@ sap.ui.define([
 				oCityInput.setValueState(ValueState.None);
 			}
 			
-
+			
+			
 			var oPhoneInput = oView.byId("idPhoneNumber");
+			var codes = ["25", "29", "33", "44"];
+			var code = oPhoneInput.getValue().substring(4, 6);
+			
 			if (oPhoneInput.getValue().length < 13 || !oPhoneInput.getValue().startsWith("+375")) {
 				isValid = false;
 				oPhoneInput.setValueState(ValueState.Error);
 				oPhoneInput.setValueStateText(this.getResourceBundle().getText("phoneError"));
 				oPage.scrollToElement(oPhoneInput);
-			} else {
+			}
+			else if (!codes.includes(code)) {
+		        isValid = false;
+		        oPhoneInput.setValueState(ValueState.Error);
+		        oPhoneInput.setValueStateText(this.getResourceBundle().getText("phoneErrorCode"));
+		        oPage.scrollToElement(oPhoneInput);
+		    } 
+			else {
 				oPhoneInput.setValueState(ValueState.None);
 			}
 
