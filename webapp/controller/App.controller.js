@@ -74,6 +74,7 @@ sap.ui.define([
 		    oView.byId("idName").setValueState(ValueState.None);
 		    oView.byId("idLastname").setValueState(ValueState.None);
 		    oView.byId("idPhoneNumber").setValueState(ValueState.None);
+		    oView.byId("idPhoneNumber").setValue("+375");
 		    oView.byId("idEmail").setValueState(ValueState.None);
 		    oView.byId("idPassword").setValueState(ValueState.None);;
 		    oView.byId("idConfirmPassword").setValueState(ValueState.None);
@@ -232,7 +233,18 @@ sap.ui.define([
     	onPressPopoverButton: function(oEvent){
     		const msg = oEvent.getSource().getText();
     		MessageToast.show(msg);
-    	}
+    	},
+    	onInstagramPress: function () {
+		    window.open("https://www.instagram.com", "_blank");
+		},
+		
+		onTelegramPress: function () {
+		    window.open("https://telegram.org", "_blank");
+		},
+		
+		onYoutubePress: function () {
+			window.open("https://www.youtube.com", "_blank");
+		}
 
 	});
 });

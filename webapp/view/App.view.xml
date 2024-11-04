@@ -6,17 +6,18 @@
     displayBlock="true">
     <App>
         <Page id="idRegistrationPage" class="sapUiContentPadding">
-    	<customHeader>
-			<Bar>
-				<contentMiddle>
-					<Title class="sapUiSmallMarginBegin" text="{i18n>title}"/>
-				</contentMiddle>
-				<contentRight>
-					<Button type="Transparent" icon="./src/img/logo.png" press="onPressShow"/>
-			
-				</contentRight>
-			</Bar>
-		</customHeader>
+	    	<customHeader>
+				<Bar>
+					<contentMiddle>
+						<Title class="sapUiSmallMarginBegin" text="{i18n>title}"/>
+					</contentMiddle>
+					<contentRight>
+						<Button type="Transparent" icon="./src/img/logo.png" press="onPressShow"/>
+				
+					</contentRight>
+				</Bar>
+			</customHeader>
+		
             <content>
                 <VBox>
                     <Label text="{i18n>name}" labelFor="idName" />
@@ -54,12 +55,11 @@
                     <FlexBox class="sapUiAlignItemsCenter" wrap="Wrap" direction="Row">
 					    <CheckBox id="idCheckBox" select="onSelectCheckbox"/>
 					    <Text text="{i18n>agreeWith}" class="sapUiTinyMarginEnd sapUiSmallMarginTop"/>
-					    <Link text="{i18n>userAgreement}" href="./pdf/UserAgreement.pdf" target="_blank" class="sapUiTinyMarginEnd sapUiSmallMarginTop"/>
+					    <Link text="{i18n>withUserAgreement}" href="./src/pdf/UserAgreement.pdf" target="_blank" class="sapUiTinyMarginEnd sapUiSmallMarginTop"/>
 					    <Text text="{i18n>and}" class="sapUiTinyMarginEnd sapUiSmallMarginTop"/>
-					    <Link text="{i18n>platformRules}" href="./pdf/PlatformRules.pdf" target="_blank" class="sapUiSmallMarginBottom sapUiSmallMarginTop"/>
+					    <Link text="{i18n>withPlatformRules}" href="./src/pdf/PlatformRules.pdf" target="_blank" class="sapUiSmallMarginBottom sapUiSmallMarginTop"/>
 					</FlexBox>
 
-                    
                     <FlexBox class="sapUiAlignItemsCenter" wrap="Wrap" direction="Row">
                         <Button type="Emphasized" text="{i18n>register}" press="onSaveForm" enabled="{/bRegisterButtonEnabled}" class="sapUiSmallMarginEnd"/>
                         <Button type="Reject" text="{i18n>cancel}" press="onClearForm"/>
@@ -74,6 +74,58 @@
                         class="sapUiSmallMarginTop">
                     </MessageStrip>
                 </VBox>
+                
+                
+                <FlexBox
+		            direction="Row" wrap="Wrap" justifyContent="SpaceAround" backgroundDesign="Solid" 
+		            alignItems="Center" width="100%" class="sapUiSmallMarginTop sapUiContentPadding">
+		
+		            <VBox class="sapUiContentPadding" alignItems="Center">
+		            	<Image src="./src/img/logo.png"
+					width="5vh"
+					decorative="false"
+				 />
+		                <Text text="{i18n>companyName}"/>
+		                <Text text="{i18n>companySlogan}"/>
+		            </VBox>
+		
+		            <VBox class="sapUiContentPadding" >
+		                <Link text="1. {i18n>privacyPolicy}" href="./src/pdf/PrivacyPolicy.pdf" target="_blank" />
+		                <Link text="2. {i18n>userAgreement}" href="./src/pdf/UserAgreement.pdf" target="_blank" />
+		                <Link text="3. {i18n>platformRules}" href="./src/pdf/PlatformRules.pdf" target="_blank"/>
+		                <Link text="4. {i18n>returnPolicy}" href="./src/pdf/ReturnPolicy.pdf" target="_blank" />
+		            </VBox>
+		
+		            <VBox class="sapUiContentPadding" >
+		            	<HBox>
+		            		<Label text="{i18n>labelAddress}" design="Bold" showColon="true" class="sapUiTinyMarginEnd"/>
+		                	<Text text="{i18n>address}" class="sapUiTinyMarginBottom"/>
+		            	</HBox>
+		                <HBox>
+		                	<Label text="{i18n>labelTel}" design="Bold" showColon="true" class="sapUiTinyMarginEnd"/>
+		                	<Text text="{i18n>tel}" class="sapUiTinyMarginBottom"/>
+		                </HBox>
+		                <VBox>
+		                	<Label text="{i18n>labelSocials}" design="Bold" showColon="true" class="sapUiTinyMarginEnd"/>
+			                <HBox>
+			                	<Button 
+							        icon="./src/img/instagram.png" 
+							        press="onInstagramPress" 
+							        type="Transparent" 
+							        class="sapUiTinyMarginEnd"/>
+							    <Button 
+							        icon="./src/img/telegram.png" 
+							        press="onTelegramPress" 
+							        class="sapUiTinyMarginEnd"
+							        type="Transparent" />
+							    <Button 
+							        icon="./src/img/youtube.png" 
+							        press="onYoutubePress" 
+							        type="Transparent" />
+			                </HBox>
+		                </VBox>
+		            </VBox>
+		        </FlexBox>
             </content>
         </Page>
     </App>
