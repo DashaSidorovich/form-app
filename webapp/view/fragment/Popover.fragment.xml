@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ResponsivePopover
+		id="idPopover"
+		class="sapUiContentPadding"
+		showHeader="false"
+		placement="Bottom" >
+		<content>
+		<FlexBox class="sapUiAlignItemsCenter" direction="Column">
+			<Button type="Transparent" icon="sap-icon://person-placeholder" text="{i18n>profile}" press="onPressPopoverButton"/>
+			<Button type="Transparent" icon="sap-icon://lead" text="{i18n>payment}" press="onPressPopoverButton"/>
+			<Button type="Transparent" icon="sap-icon://sys-help" text="{i18n>help}" press="onPressPopoverButton"/>
+			<Button type="Transparent" icon="sap-icon://locked" text="{i18n>password}" press="onPressPopoverButton"/>
+			<Button type="Transparent" icon="sap-icon://log" text="{i18n>logout}" press="onPressPopoverButton"/>
+		</FlexBox>
+		</content>
+		
+	</ResponsivePopover>
+</core:FragmentDefinition>

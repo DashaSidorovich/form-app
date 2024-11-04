@@ -1,9 +1,11 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/model/json/JSONModel",
-	"sap/ui/core/ValueState"
+	"sap/ui/core/ValueState",
+	"sap/ui/core/Fragment",
+	"sap/m/MessageToast"
 
-], function(Controller, JSONModel, ValueState) {
+], function(Controller, JSONModel, ValueState, Fragment, MessageToast) {
 	"use strict";
 
 	return Controller.extend("zjblessonsformattersApp.controller.App", {
@@ -11,8 +13,8 @@ sap.ui.define([
 			var oData = {
 				
 				"selectedCity": "city1",
-				"bRegisterValue": false,
-				"bCheckboxValue": false,
+				"bRegisterMessageVisible": false,
+				"bRegisterButtonEnabled": false,
 				"belarusCities": [
 					{
 						"CityId": "city1",
@@ -59,7 +61,7 @@ sap.ui.define([
 		},
 		onClearForm: function () {
 		    var oView = this.getView();
-		    oView.getModel().setProperty("/bRegisterValue", false);
+		    oView.getModel().setProperty("/bRegisterMessageVisible", false);
 		    oView.byId("idName").setValue("");
 		    oView.byId("idLastname").setValue("");
 		    oView.byId("idPhoneNumber").setValue("");
@@ -77,17 +79,20 @@ sap.ui.define([
 		    oView.byId("idConfirmPassword").setValueState(ValueState.None);
 		    oView.byId("idSelectCity").setValueState(ValueState.None);
 		    oView.byId("idCheckBox").setValueState(ValueState.None);
+		    
+		    this.getView().getModel().setProperty("/bRegisterButtonEnabled", true);
 		},
 		
 		onSaveForm: function(){
-			this.getView().getModel().setProperty("/bRegisterValue", false);
+			this.getView().getModel().setProperty("/bRegisterMessageVisible", false);
 			this.getView().setBusy(true);			
 			var isValid = this.validateForm();
 			if (isValid){
 				setTimeout(() => {	
 					this.getView().setBusy(false);
 					this.onClearForm();
-					this.getView().getModel().setProperty("/bRegisterValue", true);
+					this.getView().getModel().setProperty("/bRegisterMessageVisible", true);
+					this.getView().getModel().setProperty("/bRegisterButtonEnabled", false);
 				}, 3000);	
 			}
 			else {
@@ -98,7 +103,7 @@ sap.ui.define([
 		},
 		onSelectCheckbox: function(oEvent){
 			var bIsCheckBoxSelected = oEvent.getParameter('selected');
-			this.getView().getModel().setProperty("/bCheckboxValue", bIsCheckBoxSelected);
+			this.getView().getModel().setProperty("/bRegisterButtonEnabled", bIsCheckBoxSelected);
 		},
 		
 		validateForm: function() {
@@ -129,7 +134,6 @@ sap.ui.define([
 			}
 			
 			var oCityInput = oView.byId("idSelectCity");
-			console.log(oCityInput.getSelectedItem());
 			if (oCityInput.getSelectedItem() == null) {
 				isValid = false;
 				oCityInput.setValueState(ValueState.Error);
@@ -192,7 +196,13 @@ sap.ui.define([
 			
 			var oConfirmPassword = oView.byId("idConfirmPassword");
 
-			if (oPasswordInput.getValue() !== oConfirmPassword.getValue()) {
+			if (!oConfirmPassword.getValue()){
+				isValid = false;
+				oConfirmPassword.setValueState(ValueState.Error);
+				oConfirmPassword.setValueStateText(this.getResourceBundle().getText("passwordError"));
+				oPage.scrollToElement(oConfirmPassword);
+			}
+			else if (oPasswordInput.getValue() !== oConfirmPassword.getValue()) {
 				isValid = false;
 				oConfirmPassword.setValueState(ValueState.Error);
 				oConfirmPassword.setValueStateText(this.getResourceBundle().getText("confirmPasswordError"));
@@ -201,10 +211,28 @@ sap.ui.define([
 				oConfirmPassword.setValueState(ValueState.None);
 			}
 			return isValid;
-
-
-
 		},
+		
+		onPressShow: async function(oEvent) {
+            var oButton = oEvent.getSource();
+            this._oPopover ??= await Fragment.load({
+                name: "zjblessonsformattersApp.view.fragment.Popover",
+                controller: this
+            }).then(oPopover => {
+                this.getView().addDependent(oPopover);
+                oPopover.setModel(this.getView().getModel("i18n"), "i18n");
+                return oPopover;
+            });
+			if (this._oPopover.isOpen()) {
+		        this._oPopover.close();
+		    } else {
+		        this._oPopover.openBy(oButton);
+		    }
+    	},
+    	onPressPopoverButton: function(oEvent){
+    		const msg = oEvent.getSource().getText();
+    		MessageToast.show(msg);
+    	}
 
 	});
 });

@@ -5,7 +5,18 @@
     controllerName="zjblessonsformattersApp.controller.App"
     displayBlock="true">
     <App>
-        <Page id="idRegistrationPage" title="{i18n>title}" class="sapUiContentPadding">
+        <Page id="idRegistrationPage" class="sapUiContentPadding">
+    	<customHeader>
+			<Bar>
+				<contentMiddle>
+					<Title class="sapUiSmallMarginBegin" text="{i18n>title}"/>
+				</contentMiddle>
+				<contentRight>
+					<Button type="Transparent" icon="./src/img/logo.png" press="onPressShow"/>
+			
+				</contentRight>
+			</Bar>
+		</customHeader>
             <content>
                 <VBox>
                     <Label text="{i18n>name}" labelFor="idName" />
@@ -20,6 +31,7 @@
                         class="sapUiSmallMarginBottom"
                         forceSelection="false"
                         selectedKey="{/selectedCity}"
+                        width="100%"
                         items="{
                             path: '/belarusCities',
                             sorter: { path: 'Name' }
@@ -39,24 +51,25 @@
                     <Label text="{i18n>confirmPassword}" labelFor="idConfirmPassword" />
                     <Input id="idConfirmPassword" type="Password" maxLength="64" class="sapUiSmallMarginBottom"/>
                     
-                    <HBox class="sapUiAlignItemsCenter">
-                        <CheckBox id="idCheckBox" select="onSelectCheckbox"/>
-                        <Text text="{i18n>agreeWith}" class="sapUiTinyMarginEnd sapUiSmallMarginTop"/>
-                        <Link text="{i18n>userAgreement}" href="./pdf/UserAgreement.pdf" target="_blank" class="sapUiTinyMarginEnd sapUiSmallMarginTop"/>
-                        <Text text="{i18n>and}" class="sapUiTinyMarginEnd sapUiSmallMarginTop"/>
-                        <Link text="{i18n>platformRules}" href="./pdf/PlatformRules.pdf" target="_blank" class="sapUiSmallMarginBottom sapUiSmallMarginTop"/>
-                    </HBox>
+                    <FlexBox class="sapUiAlignItemsCenter" wrap="Wrap" direction="Row">
+					    <CheckBox id="idCheckBox" select="onSelectCheckbox"/>
+					    <Text text="{i18n>agreeWith}" class="sapUiTinyMarginEnd sapUiSmallMarginTop"/>
+					    <Link text="{i18n>userAgreement}" href="./pdf/UserAgreement.pdf" target="_blank" class="sapUiTinyMarginEnd sapUiSmallMarginTop"/>
+					    <Text text="{i18n>and}" class="sapUiTinyMarginEnd sapUiSmallMarginTop"/>
+					    <Link text="{i18n>platformRules}" href="./pdf/PlatformRules.pdf" target="_blank" class="sapUiSmallMarginBottom sapUiSmallMarginTop"/>
+					</FlexBox>
+
                     
-                    <HBox>
-                        <Button type="Emphasized" text="{i18n>register}" press="onSaveForm" enabled="{/bCheckboxValue}" class="sapUiSmallMarginEnd"/>
+                    <FlexBox class="sapUiAlignItemsCenter" wrap="Wrap" direction="Row">
+                        <Button type="Emphasized" text="{i18n>register}" press="onSaveForm" enabled="{/bRegisterButtonEnabled}" class="sapUiSmallMarginEnd"/>
                         <Button type="Reject" text="{i18n>cancel}" press="onClearForm"/>
-                    </HBox>
+					</FlexBox>
                     
                     <MessageStrip
                         text="{i18n>successRegister}"
                         type="Success"
                         showIcon="true"
-                        visible="{/bRegisterValue}"
+                        visible="{/bRegisterMessageVisible}"
                         showCloseButton="true"
                         class="sapUiSmallMarginTop">
                     </MessageStrip>
